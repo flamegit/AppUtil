@@ -1,10 +1,13 @@
-package com.example.flame.kotlinstudy
+package com.example.flame.kotlinstudy.lib
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.databinding.ViewDataBinding
 import android.view.LayoutInflater
+import com.example.flame.kotlinstudy.R
+import com.example.flame.kotlinstudy.BR
+
 
 
 /**

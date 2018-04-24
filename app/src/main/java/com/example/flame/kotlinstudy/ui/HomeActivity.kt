@@ -22,7 +22,9 @@ class HomeActivity : AppCompatActivity(),CommonView<List<Girl>> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val app= application as App
+
         app.mComponent.plus(ActivityModule(this)).inject(this)
+
         setContentView(R.layout.activity_detail)
         mPresenter.attachView(this)
         mPresenter.load()

@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.example.flame.kotlinstudy.model.Girl"/>
+    </data>
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="2dp">
 
     <ImageView
+        app:imageUrl="@{data.url}"
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
@@ -18,6 +28,7 @@
         />
 
     <TextView
+        android:text="@{data.desc}"
         android:id="@+id/des_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,4 +36,5 @@
         android:minLines="2"
         android:maxLines="2" />
 </RelativeLayout>
+</layout>
 

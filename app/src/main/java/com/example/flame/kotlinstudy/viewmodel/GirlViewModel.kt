@@ -1,4 +1,4 @@
-package com.example.flame.kotlinstudy.ui
+package com.example.flame.kotlinstudy.viewmodel
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableInt
@@ -16,13 +16,13 @@ import javax.inject.Inject
  */
 class GirlViewModel @Inject constructor(val api: ApiService){
 
-    val mData=ObservableArrayList<Girl>()
+    val items=ObservableArrayList<Girl>()
     var mState=ObservableInt(Constants.EMPTY)
 
     private var mPager:Int=1
 
     private fun load(page:Int){
-        mState=ObservableInt(Constants.LOADING)
+        mState.set(Constants.LOADING)
         api.getGirlList(page).enqueue(object: Callback<HttpGirl> {
             override fun onFailure(call: Call<HttpGirl>?, t: Throwable) {
                 mState.set(Constants.ERROR)
@@ -32,13 +32,16 @@ class GirlViewModel @Inject constructor(val api: ApiService){
                     if(it==null||it.isEmpty()){
                         mState.set(Constants.EMPTY)
                     }else{
-                        mData.addAll(it)
+                        items.addAll(it)
                         mState.set(Constants.COMPLETE)
                     }
                 }
             }
         })
     }
+    //fun getDate()=mData.
+
+    fun isLoading() = mState.get()==Constants.LOADING
 
     fun load(){
         mPager=1

@@ -29,6 +29,7 @@ class LiveDataActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val app= application as App
         app.mComponent.plus(ActivityModule(this)).inject(this)
+
         setContentView(R.layout.activity_detail)
         mRefreshLayout=findViewById(R.id.refresh_layout)
         val viewModel= ViewModelProviders.of(this,mViewModelFactory).get(LiveDataGirlViewModel::class.java)
@@ -40,7 +41,6 @@ class LiveDataActivity : AppCompatActivity() {
                     super.onScrolled(recyclerView, dx, dy)
                     if (recyclerView?.layoutManager is LinearLayoutManager) {
                         if (!recyclerView.canScrollVertically(1) ) {
-                            //mRefreshLayout.setRefreshing(false)
                             mRefreshLayout.isRefreshing=true
                             viewModel.loadMore()
                         }

@@ -1,4 +1,4 @@
-package com.example.flame.kotlinstudy
+package com.example.flame.kotlinstudy.lib
 
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView

@@ -7,7 +7,7 @@ import android.app.WallpaperManager
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import com.example.flame.kotlinstudy.toast
+import com.example.flame.kotlinstudy.utils.toast
 
 
 class WallPagerActivity : AppCompatActivity() {
