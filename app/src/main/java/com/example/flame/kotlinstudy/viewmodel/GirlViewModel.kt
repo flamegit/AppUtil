@@ -17,31 +17,32 @@ import javax.inject.Inject
 class GirlViewModel @Inject constructor(val api: ApiService){
 
     val items=ObservableArrayList<Girl>()
-    var mState=ObservableInt(Constants.EMPTY)
+
+    var state=ObservableInt(Constants.EMPTY)
 
     private var mPager:Int=1
 
     private fun load(page:Int){
-        mState.set(Constants.LOADING)
+        state.set(Constants.LOADING)
         api.getGirlList(page).enqueue(object: Callback<HttpGirl> {
             override fun onFailure(call: Call<HttpGirl>?, t: Throwable) {
-                mState.set(Constants.ERROR)
+                state.set(Constants.ERROR)
             }
             override fun onResponse(call: Call<HttpGirl>,response: Response<HttpGirl>) {
                 response.body()?.results.let {
                     if(it==null||it.isEmpty()){
-                        mState.set(Constants.EMPTY)
+                        state.set(Constants.EMPTY)
                     }else{
                         items.addAll(it)
-                        mState.set(Constants.COMPLETE)
+                        state.set(Constants.COMPLETE)
                     }
                 }
             }
         })
     }
-    //fun getDate()=mData.
 
-    fun isLoading() = mState.get()==Constants.LOADING
+    //fun isLoading() = state.get()==Constants.LOADING
+
 
     fun load(){
         mPager=1
@@ -49,7 +50,7 @@ class GirlViewModel @Inject constructor(val api: ApiService){
     }
 
     fun loadMore(){
-        if(mState.get()!=Constants.LOADING){
+        if(state.get()!=Constants.LOADING){
             load(++mPager)
         }
     }

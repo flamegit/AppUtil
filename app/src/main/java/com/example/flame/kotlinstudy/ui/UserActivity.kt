@@ -13,7 +13,7 @@ class UserActivity : AppCompatActivity() {
             super.onCreate(savedInstanceState)
             val binding: ActivityUserBinding =  DataBindingUtil.setContentView(this, R.layout.activity_user)
             val user = User("dd", "万", 12)
-            binding.users=user
+            binding.users= user
         }
 
 

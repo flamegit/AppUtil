@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
+        <import type="com.example.flame.kotlinstudy.model.Constants"/>
         <variable
             name="viewModel"
             type="com.example.flame.kotlinstudy.viewmodel.GirlViewModel"/>
@@ -17,7 +18,7 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:refreshing="@{viewModel.loading}">
+        app:refreshing="@{viewModel.state==3}">
 
         <android.support.v7.widget.RecyclerView
 

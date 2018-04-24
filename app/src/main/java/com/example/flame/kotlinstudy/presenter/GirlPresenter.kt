@@ -2,7 +2,6 @@ package com.example.flame.kotlinstudy.presenter
 
 import com.example.flame.kotlinstudy.datasource.net.ApiService
 import com.example.flame.kotlinstudy.model.Girl
-import com.example.flame.kotlinstudy.model.HttpBean
 import com.example.flame.kotlinstudy.model.HttpGirl
 import retrofit2.Call
 import retrofit2.Callback
