@@ -15,3 +15,9 @@ fun  <T: Activity>Context.openActivity(activity: Class<T>){
     val intent= Intent(this,activity)
     startActivity(intent)
 }
+
+fun  <T: Activity>Context.openActivity(activity: Class<T>,key:String,value:String){
+    val intent= Intent(this,activity)
+    intent.putExtra(key,value)
+    startActivity(intent)
+}

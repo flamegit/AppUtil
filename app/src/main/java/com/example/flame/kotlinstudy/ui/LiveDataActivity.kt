@@ -11,8 +11,8 @@ import com.example.flame.kotlinstudy.App
 import com.example.flame.kotlinstudy.R
 import com.example.flame.kotlinstudy.di.module.ActivityModule
 import com.example.flame.kotlinstudy.di.scope.ActivityScope
-import com.example.flame.kotlinstudy.lib.CommonAdapter
-import com.example.flame.kotlinstudy.model.Girl
+import com.example.flame.kotlinstudy.lib.MultiTypeAdapter
+import com.example.flame.kotlinstudy.lib.MultiTypeAdapter.Companion.GIRL_TYPE
 import com.example.flame.kotlinstudy.viewmodel.CommonViewModelFactory
 import com.example.flame.kotlinstudy.viewmodel.LiveDataGirlViewModel
 import javax.inject.Inject
@@ -20,28 +20,31 @@ import javax.inject.Inject
 @ActivityScope
 class LiveDataActivity : AppCompatActivity() {
 
-    @Inject lateinit var mViewModelFactory:CommonViewModelFactory
-    @Inject lateinit var mAdapter:CommonAdapter<Girl>
+    @Inject
+    lateinit var mViewModelFactory: CommonViewModelFactory
+    //@Inject lateinit var mAdapter:CommonAdapter<Girl>
+    lateinit var mAdapter: MultiTypeAdapter
 
-    lateinit var mRefreshLayout:SwipeRefreshLayout
+
+    lateinit var mRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val app= application as App
+        val app = application as App
         app.mComponent.plus(ActivityModule(this)).inject(this)
-
         setContentView(R.layout.activity_detail)
-        mRefreshLayout=findViewById(R.id.refresh_layout)
-        val viewModel= ViewModelProviders.of(this,mViewModelFactory).get(LiveDataGirlViewModel::class.java)
+        mAdapter = MultiTypeAdapter(arrayOf(GIRL_TYPE))
+        mRefreshLayout = findViewById(R.id.refresh_layout)
+        val viewModel = ViewModelProviders.of(this, mViewModelFactory).get(LiveDataGirlViewModel::class.java)
 
         findViewById<RecyclerView>(R.id.recycler_view).apply {
-            adapter=mAdapter
-            addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            adapter = mAdapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (recyclerView?.layoutManager is LinearLayoutManager) {
-                        if (!recyclerView.canScrollVertically(1) ) {
-                            mRefreshLayout.isRefreshing=true
+                        if (!recyclerView.canScrollVertically(1)) {
+                            mRefreshLayout.isRefreshing = true
                             viewModel.loadMore()
                         }
                     }
@@ -49,10 +52,10 @@ class LiveDataActivity : AppCompatActivity() {
             })
         }
 
-        viewModel.mData.observe(this, Observer{ t ->
-                mRefreshLayout.isRefreshing=false
-                mAdapter.addItems(t,viewModel.mPager!=1)
-            }
+        viewModel.mData.observe(this, Observer { t ->
+            mRefreshLayout.isRefreshing = false
+            mAdapter.addItems(t, type = GIRL_TYPE, append = viewModel.mPager != 1)
+        }
         )
         viewModel.load()
     }

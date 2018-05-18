@@ -5,10 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.example.flame.kotlinstudy.lib.CommonAdapter
-import com.example.flame.kotlinstudy.ui.BehaviorActivity
-import com.example.flame.kotlinstudy.ui.DataBindingActivity
-import com.example.flame.kotlinstudy.ui.LiveDataActivity
-import com.example.flame.kotlinstudy.ui.UserActivity
+import com.example.flame.kotlinstudy.ui.*
 import com.example.flame.kotlinstudy.utils.openActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,11 +21,11 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                openActivity(LoginActivity::class.java)
+                openActivity(BehaviorActivity::class.java)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                openActivity(BehaviorActivity::class.java)
+                openActivity(FileExplorerActivity::class.java)
                 return@OnNavigationItemSelectedListener true
             }
         }
