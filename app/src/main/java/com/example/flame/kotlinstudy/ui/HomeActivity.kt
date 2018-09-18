@@ -2,6 +2,7 @@ package com.example.flame.kotlinstudy.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import com.example.flame.kotlinstudy.App
 import com.example.flame.kotlinstudy.R
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity(),CommonView<List<Girl>> {
         setContentView(R.layout.activity_detail)
         mPresenter.attachView(this)
         mPresenter.load()
+        val pager:ViewPager
         findViewById<RecyclerView>(R.id.recycler_view).adapter=mAdapter
 
 //        findViewById<View>(R.id.button).setOnClickListener {

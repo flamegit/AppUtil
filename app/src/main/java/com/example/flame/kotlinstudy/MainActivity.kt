@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val items= arrayOf("DataBinding Example","LiveData Example"," Simple DataBinding Demo")
+    private val items= arrayOf("DataBinding Example","LiveData Example"," Simple DataBinding Demo","video")
     private val targets= arrayOf(DataBindingActivity::class.java,
-            LiveDataActivity::class.java,UserActivity::class.java)
+            LiveDataActivity::class.java,UserActivity::class.java,VideoPlayerActivity::class.java)
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {

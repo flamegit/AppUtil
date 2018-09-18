@@ -1,6 +1,7 @@
 package com.example.flame.kotlinstudy.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import com.example.flame.kotlinstudy.datasource.net.ApiService
 import com.example.flame.kotlinstudy.model.Girl
 import com.example.flame.kotlinstudy.model.HttpGirl
@@ -15,6 +16,7 @@ import android.arch.lifecycle.ViewModel
 class LiveDataGirlViewModel(val api: ApiService): ViewModel(){
 
     val mData:MutableLiveData<List<Girl>> = MutableLiveData()
+
     var mLoad=false
 
     var mPager:Int=1

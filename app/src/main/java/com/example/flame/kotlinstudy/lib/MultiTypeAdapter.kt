@@ -26,7 +26,6 @@ class MultiTypeAdapter(types: Array<Int>) : RecyclerView.Adapter<CommonViewHolde
         val type = mContent[position].type
         (mDelegates[type]
                 ?: DefaultDelegateAdapter()).onBindViewHolder(holder, position, mContent[position].data)
-
     }
 
     override fun getItemViewType(position: Int):Int = mContent[position].type
@@ -68,7 +67,6 @@ class MultiTypeAdapter(types: Array<Int>) : RecyclerView.Adapter<CommonViewHolde
         const val FOOTER = 2
         const val TYPE1 = 3
         const val GIRL_TYPE = 4
-
 
         fun getDelegateAdapter(type: Int): ViewTypeDelegateAdapter {
             when (type) {

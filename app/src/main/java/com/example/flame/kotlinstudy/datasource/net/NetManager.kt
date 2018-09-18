@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by flame on 2018/2/2.
  */
+
 object NetManager {
 
     fun getRetrofit(baseUrl: String): Retrofit {

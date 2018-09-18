@@ -3,6 +3,9 @@ package com.example.flame.kotlinstudy.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetManager
+import android.graphics.Typeface
+import android.widget.TextView
 import android.widget.Toast
 
 /**
@@ -20,4 +23,10 @@ fun  <T: Activity>Context.openActivity(activity: Class<T>,key:String,value:Strin
     val intent= Intent(this,activity)
     intent.putExtra(key,value)
     startActivity(intent)
+}
+
+fun Context.setRobotoFont( textView: TextView){
+    val mgr=assets
+    val tf=Typeface.createFromAsset(mgr,"fonts/RobotoCondensed-Bold.ttf")
+    textView.typeface=tf
 }

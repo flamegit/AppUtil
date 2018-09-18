@@ -1,39 +1,44 @@
 package com.example.flame.kotlinstudy.ui
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import com.example.flame.kotlinstudy.R
-import com.example.flame.kotlinstudy.lib.CommonAdapter
-import com.example.flame.kotlinstudy.lib.MultiTypeAdapter
-import kotlinx.android.synthetic.main.activity_text.*
+import com.example.flame.kotlinstudy.lib.CommonPagerAdapter
+import kotlinx.android.synthetic.main.activity_behavior3.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 
 class BehaviorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_text)
+        setContentView(R.layout.activity_behavior3)
 
-        setSupportActionBar(toolbar)
-        val items=Array(30,{i->"num$i"})
-
-        val adapter= CommonAdapter<String>(android.R.layout.simple_list_item_1,{ holder, _, data ->
-            holder.get<TextView>(android.R.id.text1).text=data
-
+        val adapter=CommonPagerAdapter<String>({ v,s->
+            val textView=TextView(v.context)
+            textView.text=s
+            textView.setBackgroundColor(Color.BLUE)
+            textView
         })
-        //adapter.addItems(items.asList(),false)
+        adapter.addItems(listOf("a","hello","fine","here","welcome"))
+        view_pager.apply {
+            pageMargin=100
+            overScrollMode= View.OVER_SCROLL_NEVER
+        }
+        view_pager.adapter=adapter
 
-        val multiAdapter = MultiTypeAdapter(arrayOf(MultiTypeAdapter.HEADER,MultiTypeAdapter.FOOTER))
+        val job= launch(CommonPool) {
+            delay(1000)
+        }
 
-        multiAdapter.addItems(items.asList())
-
-        co_recycler_view.adapter=multiAdapter
-
-        multiAdapter.addHeader("header")
-        multiAdapter.addFooter("footer")
 
 
 
     }
+
 }

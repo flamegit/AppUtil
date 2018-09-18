@@ -10,7 +10,7 @@ import com.example.flame.kotlinstudy.BR
 /**
  * Created by flame on 2017/10/24.
  */
-class DataBindingAdapter<T>(val layoutId:Int) :
+class DataBindingAdapter<in T>(private val layoutId:Int) :
         RecyclerView.Adapter<DataBindingViewHolder>() {
 
     private var mContent: MutableList<T> = mutableListOf()
