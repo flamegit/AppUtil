@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-
 android {
     compileSdkVersion 27
     buildToolsVersion '28.0.2'
@@ -30,7 +29,6 @@ android {
     kapt {
         generateStubs = true
     }
-
 }
 
 dependencies {
@@ -61,10 +59,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile "android.arch.persistence.room:runtime:1.1.1"
+    implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
     implementation 'org.jsoup:jsoup:1.11.1'
-
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 }
 

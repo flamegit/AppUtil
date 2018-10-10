@@ -21,11 +21,11 @@ class ActivityModule(private val activity:AppCompatActivity){
     @ActivityScope
     @Provides
     fun provideHomeAdapter():CommonAdapter<Girl>{
-        return CommonAdapter(R.layout.viewholder_girl, { h, _, d ->
+        return CommonAdapter(R.layout.viewholder_girl) { h, _, d ->
             h.get<TextView>(R.id.des_view).text=d.desc
             Glide.with(activity).load(d.url).fitCenter().into(h.get(R.id.image_view))
             h.itemView.setOnClickListener({ activity.openActivity(BehaviorActivity::class.java)})
-        })
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.flame.kotlinstudy.di.component
 
 import com.example.flame.kotlinstudy.di.module.ActivityModule
+import com.example.flame.kotlinstudy.di.module.FragmentModule
 import com.example.flame.kotlinstudy.di.scope.ActivityScope
 import com.example.flame.kotlinstudy.ui.DataBindingActivity
 import com.example.flame.kotlinstudy.ui.HomeActivity
@@ -12,7 +13,7 @@ import dagger.Subcomponent
  */
 
 @ActivityScope
-@Subcomponent(modules = arrayOf(ActivityModule::class))
+@Subcomponent(modules = arrayOf(ActivityModule::class,FragmentModule::class))
 interface ActivityComponent {
 
     fun inject(activity: HomeActivity)

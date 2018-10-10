@@ -17,8 +17,7 @@ class HtmlPageParser(val url: String) {
     init {
         try {
             document = Jsoup.connect(url).get()
-        } catch (e: IOException) {
-        }
+        } catch (e: IOException) { }
     }
 
     fun getCategoryList(): List<Category> {
@@ -27,7 +26,8 @@ class HtmlPageParser(val url: String) {
             val elements = it.select("ul#pins>li>a")
             for (element in elements) {
                 val img = element.getElementsByTag("img").first()
-                val lady = Category(desc = img.attr("alt"), cover = img.attr("data-original"), url = element.attr("href"))
+                val lady = Category(desc = img.attr("alt"), cover = img.attr("data-original"),
+                        url = element.attr("href"))
                 list.add(lady)
             }
         }

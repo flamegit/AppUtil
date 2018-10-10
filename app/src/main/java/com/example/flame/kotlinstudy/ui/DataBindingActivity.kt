@@ -23,9 +23,7 @@ class DataBindingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val app= application as App
         app.mComponent.plus(ActivityModule(this)).inject(this)
-
         val binding:ActivityDataBindingBinding=DataBindingUtil.setContentView(this,R.layout.activity_data_binding)
-
         binding.recyclerView.apply {
             adapter=DataBindingAdapter<Girl>(R.layout.viewholder_databinding_girl)
             addOnScrollListener(object : RecyclerView.OnScrollListener(){
