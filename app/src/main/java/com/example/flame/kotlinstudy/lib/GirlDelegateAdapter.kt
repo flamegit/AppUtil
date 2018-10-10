@@ -22,7 +22,7 @@ class GirlDelegateAdapter :ViewTypeDelegateAdapter {
             val context=holder.itemView.context
             holder.get<TextView>(R.id.des_view).text=data.desc
             Glide.with(context).load(data.url).fitCenter().into(holder.get(R.id.image_view))
-            holder.itemView.setOnClickListener({ context.openActivity(BehaviorActivity::class.java)})
+            holder.itemView.setOnClickListener{ context.openActivity(BehaviorActivity::class.java)}
         }
     }
 }

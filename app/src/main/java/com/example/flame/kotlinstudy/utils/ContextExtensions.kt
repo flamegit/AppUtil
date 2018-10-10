@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.widget.TextView
 import android.widget.Toast
 
@@ -29,4 +30,12 @@ fun Context.setRobotoFont( textView: TextView){
     val mgr=assets
     val tf=Typeface.createFromAsset(mgr,"fonts/RobotoCondensed-Bold.ttf")
     textView.typeface=tf
+}
+
+fun createShape(color: Int, radius: Int): GradientDrawable {
+    val drawable = GradientDrawable()
+    drawable.cornerRadius = radius.toFloat()
+    //drawable.setStroke()
+    drawable.setColor(color)
+    return drawable
 }

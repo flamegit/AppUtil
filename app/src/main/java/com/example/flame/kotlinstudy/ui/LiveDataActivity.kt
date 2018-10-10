@@ -11,8 +11,8 @@ import com.example.flame.kotlinstudy.App
 import com.example.flame.kotlinstudy.R
 import com.example.flame.kotlinstudy.di.module.ActivityModule
 import com.example.flame.kotlinstudy.di.scope.ActivityScope
+import com.example.flame.kotlinstudy.lib.GIRL_TYPE
 import com.example.flame.kotlinstudy.lib.MultiTypeAdapter
-import com.example.flame.kotlinstudy.lib.MultiTypeAdapter.Companion.GIRL_TYPE
 import com.example.flame.kotlinstudy.viewmodel.CommonViewModelFactory
 import com.example.flame.kotlinstudy.viewmodel.LiveDataGirlViewModel
 import javax.inject.Inject
@@ -33,7 +33,7 @@ class LiveDataActivity : AppCompatActivity() {
         val app = application as App
         app.mComponent.plus(ActivityModule(this)).inject(this)
         setContentView(R.layout.activity_detail)
-        mAdapter = MultiTypeAdapter(arrayOf(GIRL_TYPE))
+        mAdapter = MultiTypeAdapter()
         mRefreshLayout = findViewById(R.id.refresh_layout)
         val viewModel = ViewModelProviders.of(this, mViewModelFactory).get(LiveDataGirlViewModel::class.java)
 

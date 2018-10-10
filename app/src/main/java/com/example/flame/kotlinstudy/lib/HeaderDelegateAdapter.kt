@@ -15,6 +15,4 @@ class HeaderDelegateAdapter :ViewTypeDelegateAdapter {
         }
 
     }
-
-
 }

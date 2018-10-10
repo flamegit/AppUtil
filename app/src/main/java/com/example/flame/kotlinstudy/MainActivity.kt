@@ -11,9 +11,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val items= arrayOf("DataBinding Example","LiveData Example"," Simple DataBinding Demo","video")
-    private val targets= arrayOf(DataBindingActivity::class.java,
-            LiveDataActivity::class.java,UserActivity::class.java,VideoPlayerActivity::class.java)
+    private val items = arrayOf("DataBinding Example", "LiveData Example", " Simple DataBinding Demo", "operator", "test")
+    private val targets = arrayOf(DataBindingActivity::class.java,
+            LiveDataActivity::class.java, UserActivity::class.java,
+            OperatorsStudyActivity::class.java, TestWebSocketActivity::class.java)
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -35,14 +36,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val adapter=CommonAdapter<String>(android.R.layout.simple_list_item_1,{holder ,position , data ->
-            holder.get<TextView>(android.R.id.text1).text=data
+        val adapter = CommonAdapter<String>(android.R.layout.simple_list_item_1) { holder, position, data ->
+            holder.get<TextView>(android.R.id.text1).text = data
             holder.itemView.setOnClickListener {
                 openActivity(targets[position])
             }
-        })
-        adapter.addItems(items.asList(),false)
-        recycler_view.adapter=adapter
+        }
+        adapter.addItems(items.asList(), false)
+        recycler_view.adapter = adapter
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 

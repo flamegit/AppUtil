@@ -19,12 +19,12 @@ class BehaviorActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_behavior3)
 
-        val adapter=CommonPagerAdapter<String>({ v,s->
+        val adapter=CommonPagerAdapter<String>{ v,s->
             val textView=TextView(v.context)
             textView.text=s
             textView.setBackgroundColor(Color.BLUE)
             textView
-        })
+        }
         adapter.addItems(listOf("a","hello","fine","here","welcome"))
         view_pager.apply {
             pageMargin=100

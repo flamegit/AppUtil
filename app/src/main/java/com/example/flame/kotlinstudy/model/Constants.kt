@@ -5,10 +5,9 @@ package com.example.flame.kotlinstudy.model
  */
 class Constants{
 
-    companion object {
-        val EMPTY:Int=1
-        val ERROR:Int=2
-        val LOADING: Int=3
-        val COMPLETE:Int=4
-    }
+    val EMPTY:Int=1
+    val ERROR:Int=2
+    val LOADING: Int=3
+    val COMPLETE:Int=4
+
 }

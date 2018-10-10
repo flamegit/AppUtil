@@ -28,36 +28,38 @@ class FileExplorerActivity : AppCompatActivity() {
             window.statusBarColor = Color.TRANSPARENT
         }
 
-        val path=intent.getStringExtra("PATH")
+        val path = intent.getStringExtra("PATH")
 
-        var file= Environment.getExternalStorageDirectory()
+        var file = Environment.getExternalStorageDirectory()
 
-        if(path!=null){
-            file=File(path)
+        if (path != null) {
+            file = File(path)
         }
         //path_view.text=file.path
 
-        val adapter= CommonAdapter<File>(android.R.layout.simple_list_item_1){ holder, _, data ->
-            holder.get<TextView>(android.R.id.text1).text=data.name
+        val adapter = CommonAdapter<File>(android.R.layout.simple_list_item_1) { holder, _, data ->
+            holder.get<TextView>(android.R.id.text1).text = data.name
             holder.itemView.setOnClickListener {
-                if(data.isDirectory){
+                if (data.isDirectory) {
                     //data.path
-                    openActivity(FileExplorerActivity::class.java,"PATH",data.path)
-                }else{
-                    var intent=Intent(Intent.ACTION_VIEW)
+                    openActivity(FileExplorerActivity::class.java, "PATH", data.path)
+                } else {
+                    var intent = Intent(Intent.ACTION_VIEW)
                     //intent.setType("/")
                     startActivity(intent)
                 }
             }
         }
 
-        adapter.addItems(file.listFiles().asList(),false)
-        file_recycler_view.adapter=adapter
+        adapter.addItems(file.listFiles().asList(), false)
+        file_recycler_view.adapter = adapter
     }
 
-    fun getType(file:File):String {
+    fun getType(file: File): String {
 
         return "text/*"
     }
+
+
 
 }

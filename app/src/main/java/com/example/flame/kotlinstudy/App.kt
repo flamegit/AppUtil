@@ -19,4 +19,6 @@ class App : Application() {
 
         //toast(""+android.os.Process.myPid())
     }
+
+
 }

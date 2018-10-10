@@ -65,7 +65,8 @@
             android:name=".ui.FileExplorerActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".ui.TestWebSocketActivity" />
-        <activity android:name=".ui.VideoPlayerActivity"/>
+        <activity android:name=".ui.VideoPlayerActivity" />
+        <activity android:name=".ui.OperatorsStudyActivity"></activity>
     </application>
 
 </manifest>
