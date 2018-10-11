@@ -10,7 +10,7 @@ import javax.inject.Inject
  * Created by flame on 2018/2/19.
  */
 
-class CategroyViewModelFactory @Inject constructor(val parser: HtmlPageParser):ViewModelProvider.Factory{
+class CategoryViewModelFactory @Inject constructor(val parser: HtmlPageParser):ViewModelProvider.Factory{
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CategroyViewModel::class.java)) {
