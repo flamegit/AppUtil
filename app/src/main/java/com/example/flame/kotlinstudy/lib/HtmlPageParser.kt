@@ -35,7 +35,7 @@ class HtmlPageParser(val url: String) {
         return list
     }
 
-    fun getLadyNum(url: String): Int {
+    fun getLadyNum(): Int {
         var num = 0
         document?.let {
             val elements = it.select("div.pagenavi>a")
@@ -47,6 +47,10 @@ class HtmlPageParser(val url: String) {
             }
         }
         return num
+    }
+
+    fun getLadyImage():String?{
+        return getLadyImage(url,0)
     }
 
     companion object {

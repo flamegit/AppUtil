@@ -16,13 +16,11 @@ import com.example.flame.kotlinstudy.R
 import com.example.flame.kotlinstudy.di.module.FragmentModule
 import com.example.flame.kotlinstudy.lib.CommonAdapter
 import com.example.flame.kotlinstudy.model.Category
+import com.example.flame.kotlinstudy.model.Constants
 import com.example.flame.kotlinstudy.viewmodel.CategoryViewModelFactory
 import com.example.flame.kotlinstudy.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_girl_list.*
 import javax.inject.Inject
-
-
-private const val ARG_URL = "url"
 
 class GirlListFragment : Fragment() {
 
@@ -32,7 +30,7 @@ class GirlListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val url = it.getString(ARG_URL)
+            val url = it.getString(Constants.KEY_URL)
             App.instance().component.plus(FragmentModule(url)).inject(this)
         }
     }
@@ -65,7 +63,7 @@ class GirlListFragment : Fragment() {
         fun newInstance(url: String) =
                 GirlListFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_URL, url)
+                        putString(Constants.KEY_URL, url)
                     }
                 }
     }

@@ -34,5 +34,9 @@ class CategoryViewModel(val parser: HtmlPageParser) : ViewModel() {
     fun loadMore() {
         load(++mPager)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }
 
