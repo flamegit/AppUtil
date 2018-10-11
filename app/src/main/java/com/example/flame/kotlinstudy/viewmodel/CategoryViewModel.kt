@@ -16,9 +16,9 @@ import io.reactivex.Observable
 /**
  * Created by flame on 2018/2/18.
  */
-class CategroyViewModel(val parser: HtmlPageParser): ViewModel(){
+class CategoryViewModel(val parser: HtmlPageParser): ViewModel(){
 
-    val mData:MutableLiveData<List<Category>> = MutableLiveData()
+    val content:MutableLiveData<List<Category>> = MutableLiveData()
     var mLoad=false
     var mPager:Int=1
 
@@ -26,7 +26,7 @@ class CategroyViewModel(val parser: HtmlPageParser): ViewModel(){
         Observable.fromCallable {
             parser.getCategoryList()
         }.subscribe{
-            it->mData.postValue(it)
+            it->content.postValue(it)
         }
     }
 

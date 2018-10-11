@@ -31,7 +31,7 @@ class LiveDataActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val app = application as App
-        app.mComponent.plus(ActivityModule(this)).inject(this)
+        app.component.plus(ActivityModule(this)).inject(this)
         setContentView(R.layout.activity_detail)
         mAdapter = MultiTypeAdapter()
         mRefreshLayout = findViewById(R.id.refresh_layout)

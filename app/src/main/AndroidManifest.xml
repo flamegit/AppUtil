@@ -66,7 +66,10 @@
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".ui.TestWebSocketActivity" />
         <activity android:name=".ui.VideoPlayerActivity" />
-        <activity android:name=".ui.OperatorsStudyActivity"></activity>
+        <activity android:name=".ui.OperatorsStudyActivity" />
+        <activity
+            android:name=".ui.NavigationActivity"
+            android:label="@string/title_activity_naviagtion"></activity>
     </application>
 
 </manifest>

@@ -10,14 +10,19 @@ import com.example.flame.kotlinstudy.di.module.AppModule
  */
 class App : Application() {
 
-    lateinit var mComponent: AppComponent
+    lateinit var component: AppComponent
 
     override fun onCreate() {
-
+        instance=this
         super.onCreate()
-         mComponent=DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        component=DaggerAppComponent.builder().appModule(AppModule(this)).build()
 
         //toast(""+android.os.Process.myPid())
+    }
+
+    companion object {
+        private var instance: App? = null
+        fun instance() = instance?:throw Throwable("instance 还未初始化")
     }
 
 

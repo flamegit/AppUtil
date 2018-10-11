@@ -22,7 +22,7 @@ class DataBindingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val app= application as App
-        app.mComponent.plus(ActivityModule(this)).inject(this)
+        app.component.plus(ActivityModule(this)).inject(this)
         val binding:ActivityDataBindingBinding=DataBindingUtil.setContentView(this,R.layout.activity_data_binding)
         binding.recyclerView.apply {
             adapter=DataBindingAdapter<Girl>(R.layout.viewholder_databinding_girl)
@@ -38,8 +38,6 @@ class DataBindingActivity : AppCompatActivity() {
             })
         }
         binding.viewModel=viewModel
-
         viewModel.load()
-
     }
 }

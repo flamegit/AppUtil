@@ -1,18 +1,20 @@
 package com.example.flame.kotlinstudy.ui
 
+import android.arch.lifecycle.Observer
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.app.Fragment
 import android.arch.lifecycle.ViewModelProviders
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.flame.kotlinstudy.App
 import com.example.flame.kotlinstudy.R
 import com.example.flame.kotlinstudy.di.module.FragmentModule
-import com.example.flame.kotlinstudy.viewmodel.CommonViewModelFactory
-import com.example.flame.kotlinstudy.viewmodel.LiveDataGirlViewModel
+import com.example.flame.kotlinstudy.lib.GIRL_TYPE
+import com.example.flame.kotlinstudy.viewmodel.CategoryViewModelFactory
+import com.example.flame.kotlinstudy.viewmodel.CategoryViewModel
 import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,15 +38,18 @@ class GirlListFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     @Inject
-    lateinit var mViewModelFactory: CommonViewModelFactory
+    lateinit var mViewModelFactory: CategoryViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val app = activity.application as App
-        app.mComponent.plus(FragmentModule(this)).inject(this)
 
-        val viewModel = ViewModelProviders.of(this, mViewModelFactory).get(LiveDataGirlViewModel::class.java)
+        App.instance().component.plus(FragmentModule(this)).inject(this)
+
+        val viewModel = ViewModelProviders.of(this, mViewModelFactory).get(CategoryViewModel::class.java)
+        viewModel.content.observe(this, Observer { t ->
+
+        })
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)

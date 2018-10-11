@@ -1,6 +1,6 @@
 package com.example.flame.kotlinstudy.di.module
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import com.example.flame.kotlinstudy.di.scope.FragmentScope
 import com.example.flame.kotlinstudy.lib.HtmlPageParser
 import dagger.Module

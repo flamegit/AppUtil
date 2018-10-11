@@ -14,7 +14,7 @@ class CommonViewModelFactory @Inject constructor(val api: ApiService):ViewModelP
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LiveDataGirlViewModel::class.java)) {
             return LiveDataGirlViewModel(api) as T
-        }else if(modelClass.isAssignableFrom(CategroyViewModel::class.java)){
+        }else if(modelClass.isAssignableFrom(CategoryViewModel::class.java)){
             //return CategroyViewModel("dd")
         }
         throw IllegalArgumentException("Unknown ViewModel class")
