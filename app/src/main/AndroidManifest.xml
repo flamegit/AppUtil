@@ -71,7 +71,7 @@
             android:name=".ui.NavigationActivity"
             android:label="@string/title_activity_naviagtion" />
         <activity android:name=".ui.ContentActivity" />
-        <activity android:name=".ui.GirlOverViewActivity"></activity>
+        <activity android:name=".ui.GirlOverViewActivity" />
     </application>
 
 </manifest>

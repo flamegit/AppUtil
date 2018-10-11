@@ -35,4 +35,12 @@ open class CommonAdapter<T>(private val mLayoutId: Int, val bind: (CommonViewHol
             notifyDataSetChanged()
         }
     }
+
+    fun addItem(item: T?) {
+        item?.let {
+            mContent.add(it)
+            var size=mContent.size
+            notifyItemInserted(size-1)
+        }
+    }
 }

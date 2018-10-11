@@ -17,6 +17,7 @@ import com.example.flame.kotlinstudy.di.module.FragmentModule
 import com.example.flame.kotlinstudy.lib.CommonAdapter
 import com.example.flame.kotlinstudy.model.Category
 import com.example.flame.kotlinstudy.model.Constants
+import com.example.flame.kotlinstudy.utils.openActivity
 import com.example.flame.kotlinstudy.viewmodel.CategoryViewModelFactory
 import com.example.flame.kotlinstudy.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_girl_list.*
@@ -46,6 +47,9 @@ class GirlListFragment : Fragment() {
         val adapter = CommonAdapter<Category>(R.layout.viewholder_girl) { holder, _, data ->
             Glide.with(this).load(createGlideUrl(data.cover)).into(holder[R.id.image_view])
             holder.get<TextView>(R.id.desc_view).text = data.desc
+            holder.itemView.setOnClickListener{
+                context?.openActivity(GirlOverViewActivity::class.java,Constants.KEY_URL,data.url)
+            }
         }
         viewModel.content.observe(this, Observer { data ->
             adapter.addItems(data, false)

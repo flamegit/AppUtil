@@ -5,7 +5,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
 
-
 /**
  * Created by flame on 2018/2/1.
  */
@@ -50,15 +49,14 @@ class HtmlPageParser(val url: String) {
     }
 
     fun getLadyImage():String?{
-        return getLadyImage(url,0)
+        return getLadyImage(url)
     }
 
     companion object {
 
-        fun getLadyImage(baseUrl: String, index: Int): String? {
+        fun getLadyImage(url: String): String? {
             var src: String? = null
             try {
-                val url = "$baseUrl/$index"
                 val document = Jsoup.connect(url).get()
                 val element = document.select("div.main-image>p>a").first()
                 val img = element.getElementsByTag("img").first()
@@ -68,9 +66,7 @@ class HtmlPageParser(val url: String) {
             }
             return src
         }
-
     }
-
 }
 
 
