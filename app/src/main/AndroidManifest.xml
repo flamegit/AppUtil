@@ -69,7 +69,8 @@
         <activity android:name=".ui.OperatorsStudyActivity" />
         <activity
             android:name=".ui.NavigationActivity"
-            android:label="@string/title_activity_naviagtion"></activity>
+            android:label="@string/title_activity_naviagtion" />
+        <activity android:name=".ui.ContentActivity"></activity>
     </application>
 
 </manifest>

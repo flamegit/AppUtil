@@ -3,7 +3,8 @@ package com.example.flame.kotlinstudy.lib
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.util.Log
+import com.example.flame.kotlinstudy.model.Constants
+import com.example.flame.kotlinstudy.ui.GirlListFragment
 
 /**
  * Created by Administrator on 2016/8/13.
@@ -20,7 +21,7 @@ class LadyFragmentAdapter(fm: FragmentManager, internal var type: Int) : Fragmen
     }
 
     override fun getItem(position: Int): Fragment {
-        return null;
+        return GirlListFragment.newInstance(Constants.ENDURL+paths[type][position])
     }
 
     override fun getItemId(position: Int): Long {

@@ -14,13 +14,14 @@ class HtmlPageParser(val url: String) {
 
     private var document: Document? = null
 
-    init {
-        try {
-            document = Jsoup.connect(url).get()
-        } catch (e: IOException) { }
-    }
 
     fun getCategoryList(): List<Category> {
+        if(document == null){
+            try {
+                document = Jsoup.connect(url).get()
+            } catch (e: IOException) { }
+        }
+
         val list = arrayListOf<Category>()
         document?.let {
             val elements = it.select("ul#pins>li>a")
@@ -46,6 +47,24 @@ class HtmlPageParser(val url: String) {
             }
         }
         return num
+    }
+
+    companion object {
+
+        fun getLadyImage(baseUrl: String, index: Int): String? {
+            var src: String? = null
+            try {
+                val url = "$baseUrl/$index"
+                val document = Jsoup.connect(url).get()
+                val element = document.select("div.main-image>p>a").first()
+                val img = element.getElementsByTag("img").first()
+                src = img.attr("src")
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return src
+        }
+
     }
 
 }
