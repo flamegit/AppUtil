@@ -7,6 +7,7 @@ import com.example.flame.kotlinstudy.R
 import com.example.flame.kotlinstudy.lib.CommonAdapter
 import com.example.flame.kotlinstudy.lib.HtmlPageParser
 import com.example.flame.kotlinstudy.model.Constants
+import com.example.flame.kotlinstudy.utils.createGlideUrl
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,11 +23,13 @@ class GirlOverViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_girl_overview)
         val url=intent.getStringExtra(Constants.KEY_URL)
         parser= HtmlPageParser(url)
-        loadFirstImage(url)
+
         adapter = CommonAdapter(R.layout.viewholder_girl) { holder, _, data ->
-            Glide.with(this).load(data).into(holder[R.id.image_view])
+            Glide.with(this).load(createGlideUrl(data)).into(holder[R.id.image_view])
         }
         recycler_view.adapter=adapter
+
+        loadFirstImage(url)
     }
 
     private fun loadFirstImage(url: String) {

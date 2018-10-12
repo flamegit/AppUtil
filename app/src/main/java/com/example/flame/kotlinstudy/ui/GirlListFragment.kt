@@ -17,6 +17,7 @@ import com.example.flame.kotlinstudy.di.module.FragmentModule
 import com.example.flame.kotlinstudy.lib.CommonAdapter
 import com.example.flame.kotlinstudy.model.Category
 import com.example.flame.kotlinstudy.model.Constants
+import com.example.flame.kotlinstudy.utils.createGlideUrl
 import com.example.flame.kotlinstudy.utils.openActivity
 import com.example.flame.kotlinstudy.viewmodel.CategoryViewModelFactory
 import com.example.flame.kotlinstudy.viewmodel.CategoryViewModel
@@ -58,9 +59,7 @@ class GirlListFragment : Fragment() {
         viewModel.load()
     }
 
-    private fun createGlideUrl(url: String): GlideUrl {
-        return GlideUrl(url, LazyHeaders.Builder().addHeader("Referer", "http://www.mzitu.com").build())
-    }
+
 
     companion object {
         @JvmStatic

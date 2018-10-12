@@ -15,12 +15,7 @@ class HtmlPageParser(val url: String) {
 
 
     fun getCategoryList(): List<Category> {
-        if(document == null){
-            try {
-                document = Jsoup.connect(url).get()
-            } catch (e: IOException) { }
-        }
-
+        checkConnect()
         val list = arrayListOf<Category>()
         document?.let {
             val elements = it.select("ul#pins>li>a")
@@ -35,6 +30,7 @@ class HtmlPageParser(val url: String) {
     }
 
     fun getLadyNum(): Int {
+        checkConnect()
         var num = 0
         document?.let {
             val elements = it.select("div.pagenavi>a")
@@ -48,23 +44,41 @@ class HtmlPageParser(val url: String) {
         return num
     }
 
-    fun getLadyImage():String?{
-        return getLadyImage(url)
+    private fun checkConnect() {
+        if (document == null) {
+            try {
+                document = Jsoup.connect(url).get()
+            } catch (e: IOException) {
+            }
+        }
     }
+
+
+    fun getLadyImage(): String? {
+        checkConnect()
+        return getLadyImage(document)
+    }
+
 
     companion object {
 
-        fun getLadyImage(url: String): String? {
+        private fun getLadyImage(document: Document?): String? {
             var src: String? = null
-            try {
-                val document = Jsoup.connect(url).get()
-                val element = document.select("div.main-image>p>a").first()
+            document?.let {
+                val element = it.select("div.main-image>p>a").first()
                 val img = element.getElementsByTag("img").first()
                 src = img.attr("src")
-            } catch (e: IOException) {
-                e.printStackTrace()
             }
             return src
+        }
+
+        fun getLadyImage(url: String): String? {
+            var document: Document? = null
+            try {
+                document = Jsoup.connect(url).get()
+            } catch (e: IOException) {
+            }
+            return getLadyImage(document)
         }
     }
 }

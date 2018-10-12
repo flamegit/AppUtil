@@ -8,6 +8,9 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
+import com.example.flame.kotlinstudy.model.Constants
 
 /**
  * Created by flame on 2018/2/17.
@@ -38,4 +41,11 @@ fun createShape(color: Int, radius: Int): GradientDrawable {
     //drawable.setStroke()
     drawable.setColor(color)
     return drawable
+}
+
+fun createGlideUrl(url: String?): GlideUrl? {
+    url?.let {
+        return GlideUrl(url, LazyHeaders.Builder().addHeader("Referer", Constants.ENDURL).build())
+    }
+    return null
 }
