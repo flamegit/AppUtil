@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import com.example.flame.kotlinstudy.lib.HtmlPageParser
 import com.example.flame.kotlinstudy.model.Category
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -13,30 +14,40 @@ import io.reactivex.schedulers.Schedulers
 class CategoryViewModel(val parser: HtmlPageParser) : ViewModel() {
 
     val content: MutableLiveData<List<Category>> = MutableLiveData()
-    var mLoad = false
-    var mPager: Int = 1
+    var loading = false
+    var disposable: Disposable? = null
+    var page: Int = 1
 
+    //TODO
     private fun load(page: Int) {
-        Observable.fromCallable {
-            parser.getCategoryList()
+        loading=true
+        disposable = Observable.fromCallable {
+            if (page == 1) {
+                parser.getCategoryList()
+            } else {
+                HtmlPageParser.getCategoryList("$parser.url/$page")
+            }
+
         }.subscribeOn(Schedulers.io())
-                .subscribe { it ->
-                    content.postValue(it)
+                .subscribe {
+                    it -> content.postValue(it)
+                    loading=false
                 }
     }
 
     fun load() {
-        if (mLoad) return
-        mPager = 1
+        if (loading) return
+        page = 1
         load(1)
     }
 
     fun loadMore() {
-        load(++mPager)
+        load(++page)
     }
 
     override fun onCleared() {
         super.onCleared()
+        disposable?.dispose()
     }
 }
 

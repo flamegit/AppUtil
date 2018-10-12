@@ -13,20 +13,9 @@ class HtmlPageParser(val url: String) {
 
     private var document: Document? = null
 
-
     fun getCategoryList(): List<Category> {
         checkConnect()
-        val list = arrayListOf<Category>()
-        document?.let {
-            val elements = it.select("ul#pins>li>a")
-            for (element in elements) {
-                val img = element.getElementsByTag("img").first()
-                val lady = Category(desc = img.attr("alt"), cover = img.attr("data-original"),
-                        url = element.attr("href"))
-                list.add(lady)
-            }
-        }
-        return list
+        return getCategoryList(document)
     }
 
     fun getLadyNum(): Int {
@@ -53,7 +42,6 @@ class HtmlPageParser(val url: String) {
         }
     }
 
-
     fun getLadyImage(): String? {
         checkConnect()
         return getLadyImage(document)
@@ -72,13 +60,35 @@ class HtmlPageParser(val url: String) {
             return src
         }
 
-        fun getLadyImage(url: String): String? {
+        private fun getCategoryList(document: Document?): List<Category> {
+            val list = arrayListOf<Category>()
+            document?.let {
+                val elements = it.select("ul#pins>li>a")
+                for (element in elements) {
+                    val img = element.getElementsByTag("img").first()
+                    val lady = Category(desc = img.attr("alt"), cover = img.attr("data-original"),
+                            url = element.attr("href"))
+                    list.add(lady)
+                }
+            }
+            return list
+        }
+
+        fun getCategoryList(url: String): List<Category> {
+            return getCategoryList(connect(url))
+        }
+
+        private fun connect(url: String): Document? {
             var document: Document? = null
             try {
                 document = Jsoup.connect(url).get()
             } catch (e: IOException) {
             }
-            return getLadyImage(document)
+            return document
+        }
+
+        fun getLadyImage(url: String): String? {
+            return getLadyImage(connect(url))
         }
     }
 }

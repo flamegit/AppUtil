@@ -4,13 +4,12 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.model.GlideUrl
-import com.bumptech.glide.load.model.LazyHeaders
 import com.example.flame.kotlinstudy.App
 import com.example.flame.kotlinstudy.R
 import com.example.flame.kotlinstudy.di.module.FragmentModule
@@ -55,11 +54,22 @@ class GirlListFragment : Fragment() {
         viewModel.content.observe(this, Observer { data ->
             adapter.addItems(data, false)
         })
-        girl_list_view.adapter = adapter
-        viewModel.load()
+        girl_list_view.apply{
+            this.adapter = adapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    recyclerView?.let{
+                        if (!it.canScrollVertically(1) && !viewModel.loading) {
+                            //mRefreshLayout.isRefreshing = true
+                            viewModel.loadMore()
+                        }
+                    }
+                }
+            })
+            viewModel.load()
+        }
     }
-
-
 
     companion object {
         @JvmStatic
