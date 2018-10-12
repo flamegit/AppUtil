@@ -15,24 +15,26 @@ class CategoryViewModel(val parser: HtmlPageParser) : ViewModel() {
 
     val content: MutableLiveData<List<Category>> = MutableLiveData()
     var loading = false
-    var disposable: Disposable? = null
-    var page: Int = 1
+    private var disposable: Disposable? = null
+    @Volatile var page: Int = 1
 
-    //TODO
     private fun load(page: Int) {
-        loading=true
+        loading = true
         disposable = Observable.fromCallable {
             if (page == 1) {
                 parser.getCategoryList()
             } else {
-                HtmlPageParser.getCategoryList("$parser.url/$page")
+                HtmlPageParser.getCategoryList("${parser.url}/$page")
             }
 
         }.subscribeOn(Schedulers.io())
-                .subscribe {
-                    it -> content.postValue(it)
-                    loading=false
-                }
+                .subscribe(
+                        { it ->
+                            content.postValue(it)
+                            loading = false
+                        },
+                        { _ -> loading =false}
+                )
     }
 
     fun load() {

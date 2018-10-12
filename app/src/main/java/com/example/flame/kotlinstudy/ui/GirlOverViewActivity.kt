@@ -34,9 +34,9 @@ class GirlOverViewActivity : AppCompatActivity() {
 
     private fun loadFirstImage(url: String) {
         val tmp = Observable.fromCallable {
-            val url = parser.getLadyImage()
+            val imageUrl = parser.getLadyImage()
             val count = parser.getLadyNum()
-            return@fromCallable Pair(url, count)
+            return@fromCallable Pair(imageUrl, count)
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {

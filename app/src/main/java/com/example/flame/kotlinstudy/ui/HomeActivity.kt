@@ -29,7 +29,6 @@ class HomeActivity : AppCompatActivity(),CommonView<List<Girl>> {
         setContentView(R.layout.activity_detail)
         mPresenter.attachView(this)
         mPresenter.load()
-        val pager:ViewPager
         findViewById<RecyclerView>(R.id.recycler_view).adapter=mAdapter
 
 //        findViewById<View>(R.id.button).setOnClickListener {

@@ -47,21 +47,22 @@ class GirlListFragment : Fragment() {
         val adapter = CommonAdapter<Category>(R.layout.viewholder_girl) { holder, _, data ->
             Glide.with(this).load(createGlideUrl(data.cover)).into(holder[R.id.image_view])
             holder.get<TextView>(R.id.desc_view).text = data.desc
-            holder.itemView.setOnClickListener{
-                context?.openActivity(GirlOverViewActivity::class.java,Constants.KEY_URL,data.url)
+            holder.itemView.setOnClickListener {
+                context?.openActivity(GirlOverViewActivity::class.java, Constants.KEY_URL, data.url)
             }
         }
         viewModel.content.observe(this, Observer { data ->
             adapter.addItems(data, false)
+            refresh_layout.isRefreshing = false
         })
-        girl_list_view.apply{
+        girl_list_view.apply {
             this.adapter = adapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    recyclerView?.let{
+                    recyclerView?.let {
                         if (!it.canScrollVertically(1) && !viewModel.loading) {
-                            //mRefreshLayout.isRefreshing = true
+                            refresh_layout.isRefreshing = true
                             viewModel.loadMore()
                         }
                     }
