@@ -27,8 +27,11 @@ class AppModule(private val app:Application){
     }
 
     @Provides fun providesAppDatabase(): AppDatabase =
-            Room.databaseBuilder(app, AppDatabase::class.java, "my-todo-db").build()
+            Room.databaseBuilder(app, AppDatabase::class.java, "girl-db").build()
 
-    @Provides fun providesToDoDao(database: AppDatabase) = database.taskDao()
+    @Provides fun providesItemDao(database: AppDatabase) = database.itemDao()
+
+    @Provides fun providesCategoryDao(database: AppDatabase) = database.categoryDao()
+
 
 }

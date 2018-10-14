@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document
  * Created by flame on 2018/2/1.
  */
 
-class HtmlPageParser(url: String) : AbstractParser(url){
+class HtmlPageParser2(url: String) : AbstractParser(url){
 
     override fun getCategoryList(): List<Category> {
         checkConnect()
@@ -17,12 +17,11 @@ class HtmlPageParser(url: String) : AbstractParser(url){
         checkConnect()
         var num = 0
         document?.let {
-            val elements = it.select("div.pagenavi>a")
+            val elements = it.select("div#page>a")
             val size = elements.size
             if (size >= 2) {
                 val a = elements[size - 2]
-                val span = a.getElementsByTag("span").first()
-                num = Integer.valueOf(span.text())
+                num = Integer.valueOf(a.text())
             }
         }
         return num
@@ -40,8 +39,7 @@ class HtmlPageParser(url: String) : AbstractParser(url){
     private fun getLadyImage(document: Document?): String? {
         var src: String? = null
         document?.let {
-            val element = it.select("div.main-image>p>a").first()
-            val img = element.getElementsByTag("img").first()
+            val img = it.select("div#content>a>img").first()
             src = img.attr("src")
         }
         return src
@@ -50,13 +48,14 @@ class HtmlPageParser(url: String) : AbstractParser(url){
     private fun getCategoryList(document: Document?): List<Category> {
         val list = arrayListOf<Category>()
         document?.let {
-            val elements = it.select("ul#pins>li>a")
+            val elements = it.select("div.main>div.pic>ul>li")
             for (element in elements) {
-                val img = element.getElementsByTag("img").first()
+                val a = element.getElementsByTag("a").first()
+                val img = a.getElementsByTag("img")
                 val lady = Category()
                 lady.desc = img.attr("alt")
-                lady.cover = img.attr("data-original")
-                lady.url = element.attr("href")
+                lady.cover = img.attr("src")
+                lady.url = a.attr("href")
                 list.add(lady)
             }
         }

@@ -12,13 +12,15 @@ class Constants {
         val COMPLETE: Int = 4
 
         val KEY_URL = "key_url"
+        val KEY_SITE_TYPE = "key_site_type"
+
 
         val ENDURL = "http://www.mzitu.com"
         val PATH = "/page/"
         val INDEX = "index"
         val URL = "url"
         val DEC = "desc"
-        val TYPE = "type"
+        val KEY_TYPE = "key_type"
         val CHANGE_TYPE_ACTION = "com.flame.changeType"
         val SHOW_DETAIL_ACTION = "com.flame.showDetail"
         val SHOW_FAVORITE_ACTION = "com.flame.showFavorite"

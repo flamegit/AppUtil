@@ -9,7 +9,6 @@ import android.arch.persistence.room.PrimaryKey
  */
 @Entity(tableName = "item")
 data class Item(@ColumnInfo(name = "desc") var desc: String, @ColumnInfo(name = "url") var url: String) {
-
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

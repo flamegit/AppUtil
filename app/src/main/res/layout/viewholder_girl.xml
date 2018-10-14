@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="5dp"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp">
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="fitCenter" />
+        <TextView
+            android:layout_marginEnd="30dp"
+            android:paddingTop="8dp"
+            android:textStyle="bold"
+            android:id="@+id/desc_view"
+            android:layout_below="@id/image_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY" />
+            android:maxLines="2" />
 
         <ImageView
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/image_view"
             android:id="@+id/favorite_view"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignBottom="@id/image_view"
             android:layout_alignParentRight="true" />
-
-        <TextView
-            android:layout_centerHorizontal="true"
-            android:id="@+id/desc_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/image_view"
-            android:maxLines="2"
-            android:minLines="2" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
 

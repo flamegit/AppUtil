@@ -20,6 +20,13 @@ class CommonPagerAdapter<T>( val mFactory: (ViewGroup,T) -> View) : android.supp
         notifyDataSetChanged()
     }
 
+    fun addItem(item: T?) {
+        item?.let {
+            mContent.add(it)
+            notifyDataSetChanged()
+        }
+    }
+
 
     override fun isViewFromObject(view: View, any: Any): Boolean {
         return view === any
@@ -35,6 +42,6 @@ class CommonPagerAdapter<T>( val mFactory: (ViewGroup,T) -> View) : android.supp
         return view
     }
 
-    override fun getPageWidth(position: Int) =0.7f
+    //override fun getPageWidth(position: Int) =0.7f
 
 }
