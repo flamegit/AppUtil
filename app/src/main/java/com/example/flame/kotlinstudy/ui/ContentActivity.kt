@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.MenuItem
 import com.example.flame.kotlinstudy.R
-import com.example.flame.kotlinstudy.di.component.ActivityComponent
 import com.example.flame.kotlinstudy.lib.LadyFragmentAdapter
 import com.example.flame.kotlinstudy.model.Constants
 import com.example.flame.kotlinstudy.model.Site
+import com.example.flame.kotlinstudy.utils.getCurrSite
 import com.example.flame.kotlinstudy.utils.openActivity
+import com.example.flame.kotlinstudy.utils.saveCurrSite
+import com.example.flame.kotlinstudy.utils.toast
 import kotlinx.android.synthetic.main.activity_content.*
 import kotlinx.android.synthetic.main.fragment_content.*
 
@@ -30,10 +34,10 @@ class ContentActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     private fun initView(intent: Intent?) {
-
         val type = intent?.getIntExtra(Constants.KEY_TYPE, Constants.HOME)
-        val siteType = intent?.getIntExtra(Constants.KEY_SITE_TYPE, 1)
-        val adapter = LadyFragmentAdapter(supportFragmentManager, Site.provideSite(siteType?:0), type ?: 0)
+        val siteType = this.getCurrSite()
+        val adapter = LadyFragmentAdapter(supportFragmentManager, Site.provideSite(siteType), type
+                ?: 0)
         view_pager.adapter = adapter
         tab_layout.setupWithViewPager(view_pager)
     }
@@ -52,6 +56,16 @@ class ContentActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         }
     }
 
+    private fun showDialog() {
+        AlertDialog.Builder(this).setTitle("切换站点").setSingleChoiceItems(Site.titles, getCurrSite())
+        { dialog, which ->
+            dialog.dismiss()
+            this@ContentActivity.saveCurrSite(which)
+            ContentActivity@ this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.HOME)
+        }.show()
+
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
@@ -60,8 +74,11 @@ class ContentActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.nav_type ->
                 ContentActivity@ this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.CATEGORY)
             R.id.nav_favorite ->
-                ContentActivity@ this.openActivity(ContentActivity::class.java, Constants.KEY_SITE_TYPE, 0)
+                ContentActivity@ this.openActivity(GirlOverViewActivity::class.java, Constants.KEY_FAVORITE, true)
+            R.id.nav_select -> showDialog()
+            R.id.nav_tag -> this.toast("come later")
         }
+        drawer_layout.closeDrawer(Gravity.START)
         return true
     }
 }

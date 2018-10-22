@@ -13,7 +13,9 @@ class Constants {
 
         val KEY_URL = "key_url"
         val KEY_SITE_TYPE = "key_site_type"
-
+        val KEY_CONFIG= "key_config"
+        val KEY_DESC ="key_desc"
+        val KEY_FAVORITE ="key_favorite"
 
         val ENDURL = "http://www.mzitu.com"
         val PATH = "/page/"

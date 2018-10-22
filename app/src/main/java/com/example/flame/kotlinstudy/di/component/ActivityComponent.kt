@@ -2,10 +2,7 @@ package com.example.flame.kotlinstudy.di.component
 
 import com.example.flame.kotlinstudy.di.module.ActivityModule
 import com.example.flame.kotlinstudy.di.scope.ActivityScope
-import com.example.flame.kotlinstudy.ui.ContentActivity
-import com.example.flame.kotlinstudy.ui.DataBindingActivity
-import com.example.flame.kotlinstudy.ui.HomeActivity
-import com.example.flame.kotlinstudy.ui.LiveDataActivity
+import com.example.flame.kotlinstudy.ui.*
 import dagger.Subcomponent
 
 /**
@@ -13,7 +10,7 @@ import dagger.Subcomponent
  */
 
 @ActivityScope
-@Subcomponent(modules = arrayOf(ActivityModule::class))
+@Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {
 
     fun inject(activity: HomeActivity)
@@ -23,5 +20,7 @@ interface ActivityComponent {
     fun inject(activity: DataBindingActivity)
 
     fun inject(activity: ContentActivity)
+
+    fun inject(activity: GirlOverViewActivity)
 
 }

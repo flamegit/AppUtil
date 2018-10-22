@@ -48,7 +48,10 @@ class HtmlPageParser2(url: String) : AbstractParser(url){
     private fun getCategoryList(document: Document?): List<Category> {
         val list = arrayListOf<Category>()
         document?.let {
-            val elements = it.select("div.main>div.pic>ul>li")
+            var elements = it.select("div.pic>ul>li")
+//            if(elements==null || elements.size==0){
+//                elements = it.select("div.pic>ul#artical")
+//            }
             for (element in elements) {
                 val a = element.getElementsByTag("a").first()
                 val img = a.getElementsByTag("img")

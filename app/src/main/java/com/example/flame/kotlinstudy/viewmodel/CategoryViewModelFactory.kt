@@ -15,7 +15,7 @@ class CategoryViewModelFactory @Inject constructor(val parser: AbstractParser, v
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
-            return CategoryViewModel(parser,categoryDao) as T
+            return CategoryViewModel(parser) as T
         }else if(modelClass.isAssignableFrom(CategoryViewModel::class.java)){
             //return CategroyViewModel("dd")
         }

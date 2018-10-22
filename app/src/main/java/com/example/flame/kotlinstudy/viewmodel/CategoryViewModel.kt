@@ -2,10 +2,9 @@ package com.example.flame.kotlinstudy.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.example.flame.kotlinstudy.datasource.database.CategoryDao
 import com.example.flame.kotlinstudy.lib.AbstractParser
-import com.example.flame.kotlinstudy.lib.HtmlPageParser
 import com.example.flame.kotlinstudy.model.Category
+import com.example.flame.kotlinstudy.model.Site
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -13,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by flame on 2018/2/18.
  */
-class CategoryViewModel(val parser: AbstractParser, val categoryDao: CategoryDao) : ViewModel() {
+class CategoryViewModel(val parser: AbstractParser) : ViewModel() {
 
     val content: MutableLiveData<List<Category>> = MutableLiveData()
     var loading = false
@@ -27,16 +26,9 @@ class CategoryViewModel(val parser: AbstractParser, val categoryDao: CategoryDao
             if (page == 1) {
                 parser.getCategoryList()
             } else {
-                parser.getCategoryList("${parser.url}/page/$page")
+                parser.getCategoryList("${parser.url}${Site.currSite?.nextPagePath}$page")
             }
 
-        }.doOnNext {categories->
-            val list = categoryDao.getAllCategory()
-            categories.forEach {
-                if(list.contains(it)){
-                    it.isFavorite=true
-                }
-            }
         }.subscribeOn(Schedulers.io())
                 .subscribe(
                         { it ->

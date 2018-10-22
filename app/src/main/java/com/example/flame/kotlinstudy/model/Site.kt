@@ -7,11 +7,11 @@ import com.example.flame.kotlinstudy.lib.HtmlPageParser2
 /**
  * Created by flame on 2018/2/2.
  */
-class Site(val siteType: Int, val title: String, val endUrl: String, val categoryTitle: Array<String>,
-           val categoryPath: Array<String>, val typeTitle: Array<String>,
-           val typePath: Array<String>) {
+class Site(val siteType: Int, val title: String, val nextPagePath: String, val endUrl: String,
+           val categoryTitle: Array<String>, val categoryPath: Array<String>,
+           val typeTitle: Array<String>, val typePath: Array<String>) {
     init {
-        currType = siteType
+        currSite = this
     }
 
     fun getTitle(type: Int): Array<String> {
@@ -31,7 +31,7 @@ class Site(val siteType: Int, val title: String, val endUrl: String, val categor
             Constants.HOME ->
                 return typePath
             Constants.CATEGORY ->
-                return categoryTitle
+                return categoryPath
             Constants.TAG ->
                 return typePath
         }
@@ -39,18 +39,19 @@ class Site(val siteType: Int, val title: String, val endUrl: String, val categor
     }
 
     companion object {
-        var currType = 0
+        var currSite: Site? = null
         val titles = arrayOf("妹子图", "美女图")
+        val nextPagePath = arrayOf("/page/", "/home/")
         val endUrls = arrayOf("http://www.mzitu.com", "http://www.mmjpg.com")
-        val categoryTitles = arrayOf(arrayOf("最新", "最热", "推荐"), arrayOf("最新", "排行榜", "推荐"))
-        val categoryPaths = arrayOf(arrayOf("/", "/hot", "/best"), arrayOf("/", "/hot", "/top"))
-        val typeTitles = arrayOf(arrayOf("最新", "最热", "推荐"), arrayOf("最新", "最热", "推荐"))
-        val typePaths = arrayOf(arrayOf("/", "/hot", "/best"), arrayOf("/", "/hot", "/best"))
+        val typeTitles = arrayOf(arrayOf("最新", "最热", "推荐"), arrayOf("最新", "排行榜", "推荐"))
+        val typePaths = arrayOf(arrayOf("/", "/hot", "/best"), arrayOf("/", "/hot", "/top"))
+        val categoryTitles = arrayOf(arrayOf("性感妹子", "日本妹子", "台湾妹子", "清纯妹子"), arrayOf("最新", "最热", "推荐"))
+        val categoryPaths = arrayOf(arrayOf("/xinggan","/japan","/taiwan","/mm"), arrayOf("/", "/hot", "/top"))
         val tagTitles = arrayOf("", "http://www.mmjpg.com/")
         val tagPaths = arrayOf("", "http://www.mmjpg.com/")
 
         fun provideSite(siteType: Int): Site {
-            return Site(siteType, titles[siteType], endUrls[siteType], categoryTitles[siteType], categoryPaths[siteType],
+            return Site(siteType, titles[siteType], nextPagePath[siteType], endUrls[siteType], categoryTitles[siteType], categoryPaths[siteType],
                     typeTitles[siteType], typePaths[siteType])
         }
 
