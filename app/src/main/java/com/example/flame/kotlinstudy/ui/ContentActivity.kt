@@ -60,8 +60,17 @@ class ContentActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         AlertDialog.Builder(this).setTitle("切换站点").setSingleChoiceItems(Site.titles, getCurrSite())
         { dialog, which ->
             dialog.dismiss()
-            this@ContentActivity.saveCurrSite(which)
-            ContentActivity@ this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.HOME)
+            when(which){
+                3-> toast("see you later")
+                4-> toast("see you later")
+                5 -> toast("see you later")
+                2 -> this.openActivity(LiveDataActivity::class.java)
+                else -> {
+                    this.saveCurrSite(which)
+                    this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.HOME)
+                }
+            }
+
         }.show()
 
     }
@@ -70,13 +79,13 @@ class ContentActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         val id = item.itemId
         when (id) {
             R.id.nav_home ->
-                ContentActivity@ this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.HOME)
+                 this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.HOME)
             R.id.nav_type ->
-                ContentActivity@ this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.CATEGORY)
+                this.openActivity(ContentActivity::class.java, Constants.KEY_TYPE, Constants.CATEGORY)
             R.id.nav_favorite ->
-                ContentActivity@ this.openActivity(GirlOverViewActivity::class.java, Constants.KEY_FAVORITE, true)
+                this.openActivity(GirlOverViewActivity::class.java, Constants.KEY_FAVORITE, true)
             R.id.nav_select -> showDialog()
-            R.id.nav_tag -> this.toast("come later")
+            R.id.nav_tag -> this.openActivity(GirlTagActivity::class.java,Constants.KEY_URL,Site.currSite?.tagPath)
         }
         drawer_layout.closeDrawer(Gravity.START)
         return true

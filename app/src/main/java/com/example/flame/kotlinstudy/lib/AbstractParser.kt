@@ -1,6 +1,7 @@
 package com.example.flame.kotlinstudy.lib
 
 import com.example.flame.kotlinstudy.model.Category
+import com.example.flame.kotlinstudy.model.Tag
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
@@ -17,6 +18,7 @@ abstract class AbstractParser(val url: String) {
     abstract fun getLadyImage(): String?
     abstract fun getCategoryList(url: String): List<Category>
     abstract fun getLadyImage(url: String): String?
+    abstract fun getTagList():List<Tag>
 
     protected fun checkConnect() {
         if (document == null) {

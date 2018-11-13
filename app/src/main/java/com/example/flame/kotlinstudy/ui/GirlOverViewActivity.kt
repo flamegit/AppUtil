@@ -55,6 +55,7 @@ class GirlOverViewActivity : AppCompatActivity() {
     var desc: String? = null
     private val compositeDisposable = CompositeDisposable()
     private var favorites: List<String>? = null
+    private val favoriteStatus: MutableList<Boolean> = mutableListOf()
     //private var progressDrawable:CircularProgressDrawable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,10 +73,9 @@ class GirlOverViewActivity : AppCompatActivity() {
             override fun onPageSelected(p0: Int) {
                 index = p0
                 index_view.text = "${p0 + 1}/$count"
-                val currUrl = pagerAdapter?.getContent(p0)
-                if (isFavorite(currUrl)) {
+                if (favoriteStatus[p0]) {
                     favorite_view.setImageResource(R.drawable.ic_favorite_red)
-                }else{
+                } else {
                     favorite_view.setImageResource(R.drawable.ic_favorite_border_white)
                 }
             }
@@ -86,7 +86,7 @@ class GirlOverViewActivity : AppCompatActivity() {
             holder.itemView.setOnClickListener {
                 group.visibility = View.VISIBLE
                 girl_view_pager.currentItem = position
-                if(position==0){
+                if (position == 0) {
                     listener.onPageSelected(0)
                 }
             }
@@ -122,16 +122,16 @@ class GirlOverViewActivity : AppCompatActivity() {
             share(true)
         }
         favorite_view.setOnClickListener {
-            favorite_view.isEnabled =false
-            val currUrl = pagerAdapter?.getContent(index)
-            if(isFavorite(currUrl)){
+            if (favoriteStatus[index]) {
                 return@setOnClickListener
             }
+            val currUrl = pagerAdapter?.getContent(index)
+            favoriteStatus[index] = true
             favorite_view.setImageResource(R.drawable.ic_favorite_red)
             Completable.fromAction {
                 val item = Item()
                 item.desc = desc
-                item.url =currUrl
+                item.url = currUrl
                 itemDao.insertItem(item)
             }.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -142,16 +142,19 @@ class GirlOverViewActivity : AppCompatActivity() {
     }
 
     private fun loadFavorite(show: Boolean) {
-        val disposable = itemDao.getAllItems().subscribe({
-            val list = transform(it)
-            favorites = list
-            if (show) {
-                adapter?.addItems(list, false)
-                pagerAdapter?.addItems(list)
-            }
-        }, {
-            it.printStackTrace()
-        })
+        val disposable = itemDao.getAllItems()
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    val list = transform(it)
+                    favorites = list
+                    if (show) {
+                        adapter?.addItems(list, false)
+                        pagerAdapter?.addItems(list)
+                        list.forEach { _ -> favoriteStatus.add(true) }
+                    }
+                }, {
+                    it.printStackTrace()
+                })
         compositeDisposable.add(disposable)
     }
 
@@ -172,6 +175,7 @@ class GirlOverViewActivity : AppCompatActivity() {
             return@fromCallable Pair(fistItem, count)
         }.doOnNext {
             Handler(Looper.getMainLooper()).post {
+                favoriteStatus.add(isFavorite(it.first))
                 adapter?.addItem(it.first)
                 pagerAdapter?.addItem(it.first)
             }
@@ -182,6 +186,7 @@ class GirlOverViewActivity : AppCompatActivity() {
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    favoriteStatus.add(isFavorite(it))
                     adapter?.addItem(it)
                     pagerAdapter?.addItem(it)
 
@@ -199,7 +204,7 @@ class GirlOverViewActivity : AppCompatActivity() {
         }
     }
 
-    private fun isFavorite(url:String?):Boolean {
+    private fun isFavorite(url: String?): Boolean {
         favorites?.let {
             if (it.contains(url)) {
                 return true

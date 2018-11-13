@@ -18,7 +18,7 @@ class LadyFragmentAdapter(fm: FragmentManager,var site: Site,var type:Int) : Fra
         return site.getTitle(type).size
     }
     override fun getItem(position: Int): Fragment {
-        return GirlListFragment.newInstance(site.endUrl+site.getPath(type)[position],site.siteType)
+        return GirlListFragment.newInstance(site.endUrl+site.getPath(type)[position])
     }
     override fun getItemId(position: Int): Long {
         return (site.siteType*100+type * 10 + position).toLong()

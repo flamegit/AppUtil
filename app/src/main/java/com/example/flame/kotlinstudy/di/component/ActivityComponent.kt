@@ -23,4 +23,10 @@ interface ActivityComponent {
 
     fun inject(activity: GirlOverViewActivity)
 
+    fun inject(activity: GirlTagActivity)
+
+    fun inject(activity: OperatorsStudyActivity)
+
+
+
 }

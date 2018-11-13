@@ -13,7 +13,7 @@ class GirlDelegateAdapter :ViewTypeDelegateAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonViewHolder {
         val view= LayoutInflater.from(parent.context)
-                .inflate(R.layout.viewholder_girl,parent,false)
+                .inflate(R.layout.viewholder_lady,parent,false)
         return CommonViewHolder(view)
     }
 
@@ -22,7 +22,7 @@ class GirlDelegateAdapter :ViewTypeDelegateAdapter {
             val context=holder.itemView.context
             holder.get<TextView>(R.id.des_view).text=data.desc
             Glide.with(context).load(data.url).into(holder.get(R.id.image_view))
-            holder.itemView.setOnClickListener{ context.openActivity(BehaviorActivity::class.java)}
+            //holder.itemView.setOnClickListener{ context.openActivity(BehaviorActivity::class.java)}
         }
     }
 }

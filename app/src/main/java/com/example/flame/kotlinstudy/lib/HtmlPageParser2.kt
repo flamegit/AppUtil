@@ -1,6 +1,7 @@
 package com.example.flame.kotlinstudy.lib
 
 import com.example.flame.kotlinstudy.model.Category
+import com.example.flame.kotlinstudy.model.Tag
 import org.jsoup.nodes.Document
 
 /**
@@ -45,13 +46,28 @@ class HtmlPageParser2(url: String) : AbstractParser(url){
         return src
     }
 
+    override fun getTagList(): List<Tag> {
+        checkConnect()
+        return getTagList(document)
+    }
+
+    private fun getTagList(document: Document?):List<Tag>{
+        val list = arrayListOf<Tag>()
+        document?.let {
+            val elements = it.select("ul#morelist>li>a")
+            for (element in elements) {
+                val img = element.getElementsByTag("img").first()
+                val tag = Tag(element.text(), img.attr("data-img"), url = element.attr("href"))
+                list.add(tag)
+            }
+        }
+        return list
+    }
+
     private fun getCategoryList(document: Document?): List<Category> {
         val list = arrayListOf<Category>()
         document?.let {
-            var elements = it.select("div.pic>ul>li")
-//            if(elements==null || elements.size==0){
-//                elements = it.select("div.pic>ul#artical")
-//            }
+            val elements = it.select("div.pic>ul>li")
             for (element in elements) {
                 val a = element.getElementsByTag("a").first()
                 val img = a.getElementsByTag("img")

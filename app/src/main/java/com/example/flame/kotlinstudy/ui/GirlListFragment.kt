@@ -18,6 +18,7 @@ import com.example.flame.kotlinstudy.lib.CommonAdapter
 import com.example.flame.kotlinstudy.lib.SpaceItemDecoration
 import com.example.flame.kotlinstudy.model.Category
 import com.example.flame.kotlinstudy.model.Constants
+import com.example.flame.kotlinstudy.model.Site
 import com.example.flame.kotlinstudy.utils.createGlideUrl
 import com.example.flame.kotlinstudy.utils.dpToPx
 import com.example.flame.kotlinstudy.utils.openActivity
@@ -31,16 +32,13 @@ class GirlListFragment : Fragment() {
     @Inject
     lateinit var mViewModelFactory: CategoryViewModelFactory
 
-    @Inject
-    lateinit var categoryDao: CategoryDao
-
     var siteType: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             val url = it.getString(Constants.KEY_URL)
-            siteType = it.getInt(Constants.KEY_SITE_TYPE)
+            siteType = Site.currSiteType()
             App.instance().component.plus(FragmentModule(siteType, url)).inject(this)
         }
     }
@@ -85,11 +83,10 @@ class GirlListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(url: String, siteType: Int) =
+        fun newInstance(url: String) =
                 GirlListFragment().apply {
                     arguments = Bundle().apply {
                         putString(Constants.KEY_URL, url)
-                        putInt(Constants.KEY_SITE_TYPE, siteType)
                     }
                 }
     }
