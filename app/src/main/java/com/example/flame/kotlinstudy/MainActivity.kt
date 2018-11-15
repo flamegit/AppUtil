@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                openActivity(ContentActivity::class.java)
+                openActivity(NavigationDrawerActivity::class.java)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {

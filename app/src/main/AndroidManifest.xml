@@ -67,14 +67,13 @@
         <activity android:name=".ui.TestWebSocketActivity" />
         <activity android:name=".ui.VideoPlayerActivity" />
         <activity android:name=".ui.OperatorsStudyActivity" />
-        <activity
-            android:name=".ui.NavigationActivity"
-            android:label="@string/title_activity_naviagtion" />
+
         <activity android:name=".ui.ContentActivity" />
         <activity android:name=".ui.GirlOverViewActivity" />
         <activity
+            android:theme="@style/Theme.Design.Light"
             android:name=".ui.NavigationDrawerActivity"
-            android:label="@string/title_activity_navigation_drawer"></activity>
+            android:label="@string/title_activity_navigation_drawer" />
     </application>
 
 </manifest>

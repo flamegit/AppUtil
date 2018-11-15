@@ -21,13 +21,13 @@ class GirlOverViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_girl_overview)
-        val url=intent.getStringExtra(Constants.KEY_URL)
-        parser= HtmlPageParser(url)
+        val url = intent.getStringExtra(Constants.KEY_URL)
+        parser = HtmlPageParser(url)
 
         adapter = CommonAdapter(R.layout.viewholder_girl) { holder, _, data ->
             Glide.with(this).load(createGlideUrl(data)).into(holder[R.id.image_view])
         }
-        recycler_view.adapter=adapter
+        recycler_view.adapter = adapter
 
         loadFirstImage(url)
     }
@@ -38,10 +38,15 @@ class GirlOverViewActivity : AppCompatActivity() {
             val count = parser.getLadyNum()
             return@fromCallable Pair(imageUrl, count)
         }.subscribeOn(Schedulers.io())
+                .flatMap {
+                    return@flatMap Observable.fromIterable(createUrlList(url, it.second))
+                }
+                .map { HtmlPageParser.getLadyImage(it) }
+
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    adapter?.addItem(it.first)
-                    loadLeftImage(url, it.second)
+                    adapter?.addItem(it)
+
                 }
     }
 
