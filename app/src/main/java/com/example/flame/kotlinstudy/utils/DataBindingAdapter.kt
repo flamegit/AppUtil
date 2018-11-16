@@ -13,18 +13,15 @@ import com.example.flame.kotlinstudy.model.Girl
  * Created by flame on 2018/2/17.
  */
 
-@BindingAdapter("app:imageUrl")
+@BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String) {
     Glide.with(view.context).load(url).into(view)
 }
 
-@BindingAdapter("app:items")
+@BindingAdapter("items")
 fun addItem(view: RecyclerView, oldItems: List<Girl>?,newItems: List<Girl>?) {
     val adapter= view.adapter as DataBindingAdapter<Girl>
-
-    var append=true
     if(oldItems==null ||oldItems.isEmpty()){
-        append=false
     }else{
         view.context.toast("append")
     }

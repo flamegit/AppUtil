@@ -2,11 +2,14 @@ package com.example.flame.kotlinstudy.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Rect
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.example.flame.kotlinstudy.App
 import com.example.flame.kotlinstudy.R
 import com.example.flame.kotlinstudy.di.module.ActivityModule
@@ -22,10 +25,7 @@ class LiveDataActivity : AppCompatActivity() {
 
     @Inject
     lateinit var mViewModelFactory: CommonViewModelFactory
-    //@Inject lateinit var mAdapter:CommonAdapter<Girl>
     lateinit var mAdapter: MultiTypeAdapter
-
-
     lateinit var mRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,15 @@ class LiveDataActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this, mViewModelFactory).get(LiveDataGirlViewModel::class.java)
 
         findViewById<RecyclerView>(R.id.recycler_view).apply {
+            this.layoutManager = GridLayoutManager(context, 2)
+            this.addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+                    super.getItemOffsets(outRect, view, parent, state)
+                    outRect?.set(5, 5, 5, 5)
+                }
+            })
             adapter = mAdapter
+
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -58,5 +66,6 @@ class LiveDataActivity : AppCompatActivity() {
         }
         )
         viewModel.load()
+        mRefreshLayout.isRefreshing =true
     }
 }

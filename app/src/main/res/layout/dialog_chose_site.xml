@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="30dp">
+
+    <RadioGroup
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:padding="5dp"
+            android:id="@+id/meizi"
+            android:text="妹子图（性感）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:padding="5dp"
+            android:id="@+id/gank"
+            android:text="干货集中营（文艺）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:padding="5dp"
+            android:id="@+id/bizi"
+            android:text="高清壁纸（正在施工中）"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:text="@android:string/cancel"
+        android:paddingLeft="30dp"
+        android:layout_alignLeft="@id/radio_group"
+        android:layout_below="@id/radio_group"
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:paddingRight="30dp"
+        android:text="@android:string/ok"
+        android:layout_alignRight="@id/radio_group"
+        android:layout_below="@id/radio_group"
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

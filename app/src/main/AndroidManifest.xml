@@ -15,16 +15,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:launchMode="singleTop"
+            android:name=".ui.ContentActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,23 +38,17 @@
         <activity android:name=".ui.WallPagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="image/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
@@ -67,13 +61,20 @@
         <activity android:name=".ui.TestWebSocketActivity" />
         <activity android:name=".ui.VideoPlayerActivity" />
         <activity android:name=".ui.OperatorsStudyActivity" />
-
-        <activity android:name=".ui.ContentActivity" />
-        <activity android:name=".ui.GirlOverViewActivity" />
         <activity
-            android:theme="@style/Theme.Design.Light"
-            android:name=".ui.NavigationDrawerActivity"
-            android:label="@string/title_activity_navigation_drawer" />
+            android:name=".MainActivity" />
+        <activity android:name=".ui.GirlOverViewActivity" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.flame.kotlinstudy.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+        </provider>
+        <activity android:name=".ui.GirlTagActivity" />
+        <activity android:name=".ui.GirlListActivity"></activity>
     </application>
 
 </manifest>

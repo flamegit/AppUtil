@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.flame.kotlinstudy.ui.DataBindingActivity">
+
+    <TextView
+        android:background="@color/colorPrimary"
+        android:padding="16dp"
+        android:text="清纯妹子"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -14,10 +22,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager">
-
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
