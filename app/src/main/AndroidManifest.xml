@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:launchMode="singleTop"
-            android:name=".ui.ContentActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -61,8 +61,7 @@
         <activity android:name=".ui.TestWebSocketActivity" />
         <activity android:name=".ui.VideoPlayerActivity" />
         <activity android:name=".ui.OperatorsStudyActivity" />
-        <activity
-            android:name=".MainActivity" />
+        <activity android:name=".ui.ContentActivity" />
         <activity android:name=".ui.GirlOverViewActivity" />
         <provider
             android:name="android.support.v4.content.FileProvider"

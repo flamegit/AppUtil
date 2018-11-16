@@ -42,11 +42,10 @@ class OperatorsStudyActivity : RxAppCompatActivity() {
         val app = application as App
         app.component.plus(ActivityModule(this)).inject(this)
         setContentView(R.layout.activity_operators_study)
-        val list = arrayListOf("concat", "merge", "zip", "amb", "reduce", "buffer", "flatMap", "http", "error","jump")
+        val list = arrayListOf("concat", "merge", "zip", "amb", "reduce", "buffer", "flatMap", "http", "error","takeuntil")
         val first = Observable.just("hello").delay(2000, TimeUnit.MILLISECONDS)
         val second = Observable.just("world").delay(1000, TimeUnit.MILLISECONDS)
         val subject = PublishSubject.create<String>()
-
 
         val bitmapObservable = RxView.clicks(textView).throttleFirst(5, TimeUnit.SECONDS)
                 .observeOn(Schedulers.io()).flatMap {
@@ -78,8 +77,8 @@ class OperatorsStudyActivity : RxAppCompatActivity() {
 
         val adapter = CommonAdapter<String>(android.R.layout.simple_list_item_1) { holder, position, data ->
             holder.get<TextView>(android.R.id.text1).text = data
-            subject.onNext(data)
             holder.itemView.setOnClickListener {
+                subject.onNext(data)
                 content_view.text = ""
                 when (position) {
                     0 -> {
@@ -102,10 +101,12 @@ class OperatorsStudyActivity : RxAppCompatActivity() {
                     5 -> {
                         RxView.clicks(textView).flatMap { _ ->
                             Observable.error<String>(Throwable("error"))
-                                    .onErrorResumeNext(Observable.just("error"))
-                        }.subscribe {
+                                    .retry()
+                        }.subscribe ({
                             toast(it)
-                        }
+                        },{
+                            toast(it.message?:"")
+                        })
                         return@setOnClickListener
                     }
                     6 -> {
@@ -142,10 +143,12 @@ class OperatorsStudyActivity : RxAppCompatActivity() {
                                 .subscribe { c -> content_view.text = "$c" }
                     }
                     9 -> {
-                        RxView.clicks(textView).takeUntil(Observable.timer(3,TimeUnit.SECONDS))
-                                .subscribe{
+                        RxView.clicks(textView).takeUntil(Observable.timer(3,TimeUnit.SECONDS,AndroidSchedulers.mainThread()))
+                                .subscribe({
                                     toast("jump")
-                                }
+                                },{},{
+                                    toast("jump")
+                                })
                     }
 
                 }
@@ -163,7 +166,6 @@ class OperatorsStudyActivity : RxAppCompatActivity() {
     }
 
     private fun getSavedFile(albumName: String): File? {
-
         val file = File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), albumName)
         if (!file.mkdirs()) {
